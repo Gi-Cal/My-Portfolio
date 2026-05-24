@@ -1,0 +1,17 @@
+{
+  "resources/js/portfolio.js": {
+    "file": "assets/portfolio-DK2F4Qt4.js",
+    "name": "portfolio",
+    "src": "resources/js/portfolio.js",
+    "isEntry": true
+  },
+  "resources/sass/portfolio.scss": {
+    "file": "assets/portfolio-Bc9O3cDY.css",
+    "name": "portfolio",
+    "names": [
+      "portfolio.css"
+    ],
+    "src": "resources/sass/portfolio.scss",
+    "isEntry": true
+  }
+}
