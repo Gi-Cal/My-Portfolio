@@ -1,0 +1,501 @@
+@extends('layouts.app')
+
+@section('content')
+
+{{-- ========== NAVBAR ========== --}}
+<nav class="navbar navbar-expand-lg custom-navbar">
+    <div class="container-fluid px-5">
+        <a class="navbar-brand p-0" href="#home">
+            <img src="{{ asset('images/nav-logo.png') }}" alt="Logo" class="nav-logo">
+        </a>
+        <button class="navbar-toggler border-0 shadow-none" type="button"
+                data-bs-toggle="collapse" data-bs-target="#navMenu"
+                aria-controls="navMenu" aria-expanded="false">
+            <i class="fa-solid fa-bars" style="color:#e2dada; font-size:22px;"></i>
+        </button>
+        <div class="collapse navbar-collapse" id="navMenu">
+            <ul class="navbar-nav ms-auto align-items-lg-center gap-lg-1 py-3 py-lg-0">
+                <li class="nav-item"><a class="nav-link custom-link" href="#home">Home</a></li>
+                <li class="nav-item"><a class="nav-link custom-link" href="#about">About Me</a></li>
+                <li class="nav-item"><a class="nav-link custom-link" href="#projects">Project</a></li>
+                <li class="nav-item mt-2 mt-lg-0 ms-lg-3">
+                    <a class="nav-link custom-link nav-special" href="#contact">Connect with Me</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+{{-- ========== HOME ========== --}}
+<section id="home" class="section-bg">
+    <div class="container-fluid px-5 home-inner">
+        <div class="row align-items-center home-row">
+
+            {{-- Text --}}
+            <div class="col-12 col-lg-7 home-text-col">
+                <h2 class="silver-text home-tagline reveal">Code. Test. Create</h2>
+                <h1 class="silver-text home-name reveal">I'm Gian Carl</h1>
+                <p class="home-role">
+                    <span id="typingText"></span><span class="cursor-bar">|</span>
+                </p>
+                <a href="#" onclick="window.open('/My-Portfolio/files/LIBRADA_RESUME.pdf', '_blank')" class="btn-gold mt-3 d-inline-block reveal">
+                    <b>Download CV</b>
+                </a>
+                <div class="socials mt-4 d-flex flex-wrap gap-4 reveal">
+                    <a href="https://www.facebook.com/giancarl.librada.7/" class="social-btn">
+                        <img src="{{ asset('images/facebook.png') }}" alt="Facebook">
+                    </a>
+                    <a href="https://www.linkedin.com/in/gian-carl-librada-33b2aa349/" class="social-btn">
+                        <img src="{{ asset('images/linkedin.png') }}" alt="LinkedIn">
+                    </a>
+                    <a href="https://github.com/Gi-Cal" class="social-btn">
+                        <img src="{{ asset('images/github.png') }}" alt="GitHub">
+                    </a>
+                    <a href="https://msng.link/o?9504626311=vi" class="social-btn">
+                        <img src="{{ asset('images/viber.png') }}" alt="Viber">
+                    </a>
+                </div>
+            </div>
+
+            {{-- Floating ID card — desktop only --}}
+            <div class="col-lg-5 d-none d-lg-flex justify-content-center align-items-center">
+                <div class="floating-container">
+                    <img class="lace-img" src="{{ asset('images/lace.png') }}" alt="Lace">
+                    <div class="case-wrap">
+                        <img class="case-img" src="{{ asset('images/case.png') }}" alt="Case">
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+{{-- ========== ABOUT ========== --}}
+<section id="about" class="section-bg">
+    <div class="container-fluid px-5 py-5">
+
+        <div class="text-center pt-5 pb-3 reveal">
+            <h1 class="silver-text section-title">About Me</h1>
+            <hr class="section-line mx-auto mt-2">
+        </div>
+
+        <div class="row justify-content-center mt-3">
+            <div class="col-12 col-lg-8 text-center reveal">
+                <p class="about-desc">
+                    I'm <b>Gian Carl Librada</b>, an aspiring <b>QA Engineer</b> and <b>Front-End Web Developer</b>
+                    based in San Pedro, Laguna. I have hands-on experience finding, reproducing, and documenting
+                    real software bugs through platforms like <b>Test IO</b>, where my reports have been
+                    accepted and forwarded by customers.
+                </p>
+                <p class="about-desc mt-3">
+                    I combine a <b>tester's eye for detail</b> with a <b>developer's understanding of code</b>,
+                    letting me catch issues others might miss and communicate them clearly. I have an understanding
+                    of <b>HTML, CSS, JavaScript, PHP, Python, C++, and Laravel</b>, along with a background in
+                    <b>UI/UX design</b> and <b>multimedia design</b>. I thrive in environments that demand
+                    precision, curiosity, and a commitment to quality.
+                </p>
+            </div>
+        </div>
+
+        <div class="text-center mt-5 pt-2 reveal">
+            <h1 class="silver-text section-title">Skills</h1>
+            <hr class="section-line mx-auto mt-2">
+        </div>
+
+        <div class="row g-4 mt-2 justify-content-center">
+            <div class="col-12 col-md-4 reveal">
+                <div class="skill-card h-100">
+                    <h2 class="skill-card-title">Tools & Platforms</h2>
+                    <div class="skill-grid">
+                        <p>VS CODE</p><p>JIRA</p>
+                        <p>CANVA</p><p>FIGMA</p>
+                        <p>GITHUB</p><p>MICROSOFT SUITE</p>
+                        <p>LARAVEL</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-md-4 reveal">
+                <div class="skill-card h-100">
+                    <h2 class="skill-card-title">Core Skills</h2>
+                    <div class="skill-list">
+                        <p>Manual QA & Bug Finding</p>
+                        <p>Exploratory Testing</p>
+                        <p>UI/UX & Front-End Design</p>
+                        <p>HTML, CSS, JavaScript, PHP</p>
+                        <p>Multimedia Design</p>
+                        <p>Attention to Detail</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-md-4 reveal">
+                <div class="skill-card h-100">
+                    <h2 class="skill-card-title">Soft Skills</h2>
+                    <div class="skill-list">
+                        <p>Communication</p>
+                        <p>Team Collaboration</p>
+                        <p>Critical Thinking</p>
+                        <p>Adaptability</p>
+                        <p>Self-Motivated</p>
+                        <p>Analytical Problem Solving</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row g-4 mt-2 justify-content-center reveal">
+            <div class="col-12">
+                <div class="skill-card">
+                    <h2 class="skill-card-title text-center">Technical Skills</h2>
+                    <div class="row g-3 mt-1">
+                        <div class="col-12 col-md-6">
+                            <div class="tech-inner">
+                                <h3 class="tech-subtitle">QA Focus</h3>
+                                <div class="skill-grid">
+                                    <p>Manual Testing</p><p>Exploratory Testing</p>
+                                    <p>Bug Reporting</p><p>Regression Testing</p>
+                                    <p>JIRA</p><p>Bug Reproduction</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 col-md-6">
+                            <div class="tech-inner">
+                                <h3 class="tech-subtitle">Web Development</h3>
+                                <div class="skill-grid">
+                                    <p>HTML5, CSS3</p><p>JavaScript</p>
+                                    <p>PHP & Laravel</p><p>Python / C++</p>
+                                    <p>Git & GitHub</p><p>Responsive Design</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="text-center mt-5 pt-2 reveal">
+            <h1 class="silver-text section-title">Services</h1>
+            <hr class="section-line mx-auto mt-2">
+        </div>
+
+        <div class="row g-4 mt-2 justify-content-center pb-5">
+            <div class="col-12 col-sm-6 col-lg-3 reveal">
+                <div class="service-card">
+                    <div class="service-icon"><i class="fa-solid fa-bug"></i></div>
+                    <h3 class="service-title">Manual Bug Finding</h3>
+                    <p class="service-desc">Thoroughly testing web and mobile applications by hand to uncover functional, visual, and content defects before they reach real users.</p>
+                </div>
+            </div>
+            <div class="col-12 col-sm-6 col-lg-3 reveal">
+                <div class="service-card">
+                    <div class="service-icon"><i class="fa-solid fa-file-lines"></i></div>
+                    <h3 class="service-title">Bug Reporting & Documentation</h3>
+                    <p class="service-desc">Writing clear, detailed bug reports with steps to reproduce, expected vs actual results, severity, and supporting evidence like screenshots.</p>
+                </div>
+            </div>
+            <div class="col-12 col-sm-6 col-lg-3 reveal">
+                <div class="service-card">
+                    <div class="service-icon"><i class="fa-solid fa-magnifying-glass"></i></div>
+                    <h3 class="service-title">Exploratory Testing</h3>
+                    <p class="service-desc">Going beyond scripted test cases to freely investigate the application, uncovering edge cases and unexpected behaviors through intuition and experience.</p>
+                </div>
+            </div>
+            <div class="col-12 col-sm-6 col-lg-3 reveal">
+                <div class="service-card">
+                    <div class="service-icon"><i class="fa-solid fa-rotate"></i></div>
+                    <h3 class="service-title">Regression Testing</h3>
+                    <p class="service-desc">Re-testing previously fixed bugs and core features after updates to ensure new changes haven't broken existing functionality.</p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+{{-- ========== PROJECTS ========== --}}
+<section id="projects" class="section-bg">
+    <div class="container-fluid px-5 py-5">
+
+        <div class="text-center pt-5 mb-2 reveal">
+            <h1 class="silver-text section-title">My Works</h1>
+            <hr class="section-line mx-auto mt-2">
+        </div>
+
+        <div class="d-flex justify-content-center mb-3 reveal">
+            <div class="testio-badge">
+                <i class="fa-solid fa-shield-halved me-2" style="color:#ffd700;"></i>
+                <span>Verified Tester on <strong>Test IO</strong></span>
+            </div>
+        </div>
+
+        <p class="text-center text-white-50 mb-4 reveal" style="font-size:13px;">
+            Real bugs submitted & accepted/forwarded on Test IO — click any row to view the full report
+        </p>
+
+        <div class="d-flex flex-wrap justify-content-center gap-2 mb-4 reveal" id="bugFilters">
+            <button class="bug-filter-btn active" data-filter="all">All</button>
+            <button class="bug-filter-btn" data-filter="Visual">Visual</button>
+            <button class="bug-filter-btn" data-filter="Functional">Functional</button>
+            <button class="bug-filter-btn" data-filter="Content">Content</button>
+        </div>
+
+        <div class="row g-3 bug-panel-row reveal">
+
+            <div class="col-12 col-lg-7">
+                <div class="bug-table-wrapper">
+                    <table class="bug-table" id="bugTable">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Title</th>
+                                <th>Type</th>
+                                <th>Severity</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody id="bugTableBody"></tbody>
+                    </table>
+                </div>
+                <div class="d-flex align-items-center justify-content-between mt-3 px-1">
+                    <span class="pagination-info" id="pageInfo"></span>
+                    <div class="d-flex gap-2">
+                        <button class="page-btn" id="prevPage"><i class="fa-solid fa-chevron-left"></i></button>
+                        <button class="page-btn" id="nextPage"><i class="fa-solid fa-chevron-right"></i></button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-12 col-lg-5">
+                <div class="bug-detail-panel" id="bugDetail">
+                    <div class="bug-detail-empty" id="bugDetailEmpty">
+                        <i class="fa-solid fa-bug fa-2x mb-3" style="color:#ca8a02;"></i>
+                        <p class="text-white-50 mb-0">Select a bug row to view full report</p>
+                    </div>
+                    <div class="bug-detail-content d-none" id="bugDetailContent">
+                        <div class="detail-badge-row mb-3">
+                            <span class="detail-type-badge" id="detailType"></span>
+                            <span class="detail-severity-badge" id="detailSeverity"></span>
+                            <span class="detail-status-badge" id="detailStatus"></span>
+                        </div>
+                        <h5 class="detail-title" id="detailTitle"></h5>
+                        <div class="detail-field">
+                            <span class="detail-label"><i class="fa-solid fa-link me-1"></i>URL</span>
+                            <a class="detail-value detail-url" id="detailUrl" href="#" target="_blank"></a>
+                        </div>
+                        <div class="detail-field">
+                            <span class="detail-label"><i class="fa-solid fa-desktop me-1"></i>Environment</span>
+                            <span class="detail-value" id="detailEnv"></span>
+                        </div>
+                        <div class="detail-field">
+                            <span class="detail-label"><i class="fa-solid fa-mobile-screen me-1"></i>Device Used</span>
+                            <span class="detail-value" id="detailDevice"></span>
+                        </div>
+                        <div class="detail-field">
+                            <span class="detail-label"><i class="fa-solid fa-list-ol me-1"></i>Steps to Reproduce</span>
+                            <ol class="detail-steps" id="detailSteps"></ol>
+                        </div>
+                        <div class="detail-field">
+                            <span class="detail-label"><i class="fa-solid fa-circle-check me-1"></i>Expected Result</span>
+                            <p class="detail-value" id="detailExpected"></p>
+                        </div>
+                        <div class="detail-field">
+                            <span class="detail-label"><i class="fa-solid fa-triangle-exclamation me-1"></i>Actual Result</span>
+                            <p class="detail-value" id="detailActual"></p>
+                        </div>
+                        <div class="detail-field">
+                            <span class="detail-label"><i class="fa-solid fa-camera me-1"></i>Evidence</span>
+                            <div class="detail-evidence" id="detailEvidence"></div>
+                        </div>
+                        <div class="detail-field" id="detailNotesField" style="display:none;">
+                            <span class="detail-label"><i class="fa-solid fa-note-sticky me-1"></i>Notes</span>
+                            <p class="detail-value" id="detailNotes"></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        {{-- Web Dev Projects --}}
+        <div class="text-center mt-5 pt-3 reveal">
+            <h2 class="silver-text section-title">Web Development Projects</h2>
+            <hr class="section-line mx-auto mt-2">
+        </div>
+
+        <div class="row g-4 mt-3 pb-5 justify-content-center">
+            <div class="col-12 col-md-4 reveal">
+                <div class="webdev-card">
+                    <div class="webdev-img-wrap">
+                        <img src="{{ asset('images/projects/project1.png') }}"
+                             onerror="this.src='https://placehold.co/600x340/0d1117/ca8a02?text=Project+1'"
+                             alt="Project 1" class="webdev-img">
+                    </div>
+                    <div class="webdev-body">
+                        <h3 class="webdev-title">Web-Based Event Management and Monitoring System for Diabetes Philippines</h3>
+                        <p class="webdev-desc">Capstone Project: A web-based Event Management and Monitoring System featuring event registration, QR code attendance tracking, online payment integration, email notifications, certificate generation, delegate feedback submission, and reports for attendance, registrations, and feedback results.</p>
+                        <a href="https://drive.google.com/file/d/1utpyNnghtzlZvO54Xf4TuiOglGq-RS5J/view?usp=sharing" target="_blank" class="webdev-link">
+                            <i class="fa-solid fa-circle-play me-1"></i> Watch Demo
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-md-4 reveal">
+                <div class="webdev-card">
+                    <div class="webdev-img-wrap">
+                        <img src="{{ asset('images/projects/project2.png') }}"
+                             onerror="this.src='https://placehold.co/600x340/0d1117/ca8a02?text=Project+2'"
+                             alt="Project 2" class="webdev-img">
+                    </div>
+                    <div class="webdev-body">
+                        <h3 class="webdev-title">B5 Personality Test Admin System</h3>
+                        <p class="webdev-desc">B5 Personality Test Admin System is an admin panel developed during my internship using Laravel for managing the B5 personality test. It enables administrators to create, update, and organize test questions and other assessment content through a user-friendly interface.</p>
+                        <a href="https://drive.google.com/file/d/1v3OH-8uUKWFrUMEjzRcm3OxwUUCouC12/view?usp=drive_link" class="webdev-link" target="_blank">
+                            <i class="fa-solid fa-circle-play me-1"></i> Watch Demo
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-md-4 reveal">
+                <div class="webdev-card">
+                    <div class="webdev-img-wrap">
+                        <img src="{{ asset('images/projects/project3.png') }}"
+                             onerror="this.src='https://placehold.co/600x340/0d1117/ca8a02?text=Project+3'"
+                             alt="Project 3" class="webdev-img">
+                    </div>
+                    <div class="webdev-body">
+                        <h3 class="webdev-title">Paige Invitation</h3>
+                        <p class="webdev-desc">A mobile-responsive birthday invitation website with event details, reminders, online RSVP with email confirmation, and a hidden admin dashboard for managing guest responses, filtering attendees, and exporting RSVP data to Excel.</p>
+                        <a href="https://drive.google.com/file/d/1YL5-3e6-yraEZGyP20i_hFEpYyp4s2fB/view?usp=sharing" target="_blank" class="webdev-link">
+                            <i class="fa-solid fa-circle-play me-1"></i> Watch Demo
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+{{-- ========== CONTACT ========== --}}
+<section id="contact" class="section-bg" style="min-height:100vh;">
+    <div class="container-fluid px-5 py-5">
+        <div class="text-center pt-5 reveal">
+            <h1 class="silver-text section-title">Get in Touch</h1>
+            <hr class="section-line mx-auto mt-2">
+        </div>
+
+        <div class="row g-5 mt-2 align-items-start justify-content-center">
+            <div class="col-12 col-lg-5 reveal">
+                <h2 class="gold-text fs-3 mb-3">Let's Connect!</h2>
+                <p class="text-white lh-lg">
+                    Hi there! I'm glad you stopped by. Whether you need a sharp eye for quality,
+                    a hand in bringing your website to life, or just want to chat about ideas,
+                    I'd love to hear from you.
+                </p>
+                <div class="mt-4 d-flex flex-column gap-3">
+                    <div class="d-flex align-items-center gap-3">
+                        <i class="fa-solid fa-envelope fa-lg" style="color:#ca8a02;"></i>
+                        <p class="text-white mb-0">iamgiancarlli@gmail.com</p>
+                    </div>
+                    <div class="d-flex align-items-center gap-3">
+                        <i class="fa-solid fa-phone fa-lg" style="color:#ca8a02;"></i>
+                        <p class="text-white mb-0">+63 950 462 6311</p>
+                    </div>
+                    <div class="d-flex align-items-center gap-3">
+                        <i class="fa-solid fa-location-dot fa-lg" style="color:#ca8a02;"></i>
+                        <p class="text-white mb-0">San Pedro, Laguna, Philippines</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-12 col-lg-5 reveal">
+                <form id="contact-form" method="post" action="https://api.web3forms.com/submit"
+                      autocomplete="off" class="contact-form">
+                    <input type="hidden" name="access_key" value="02cbf037-109c-44af-86f2-741f312cece6">
+
+                    <label class="form-label text-white">Name</label>
+                    <input type="text" name="name" class="form-control mb-3" required>
+
+                    <label class="form-label text-white">Email</label>
+                    <input type="email" name="email" class="form-control mb-3" required>
+
+                    <label class="form-label text-white">Subject</label>
+                    <input type="text" name="subject" class="form-control mb-3" required>
+
+                    <label class="form-label text-white">Message</label>
+                    <textarea name="message" class="form-control mb-3" rows="4" required></textarea>
+
+                    <button class="btn-send w-100" id="myButton" type="submit">Send</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+
+{{-- ========== EVIDENCE MODAL ========== --}}
+<div class="evidence-modal" id="evidenceModal">
+    <div class="evidence-modal-inner">
+        <button class="evidence-modal-close" id="evidenceModalClose">
+            <i class="fa-solid fa-xmark"></i>
+        </button>
+        <img id="evidenceModalImg" src="" alt="Bug Evidence" style="display:none;">
+        <video id="evidenceModalVideo" controls playsinline preload="metadata" style="display:none;">
+            <source id="evidenceModalVideoSrc" src="" type="video/mp4">
+        </video>
+    </div>
+</div>
+
+{{-- ========== FOOTER ========== --}}
+<footer id="footer">
+    <div class="footer-inner">
+
+        <div class="footer-top">
+
+            {{-- Brand + Socials --}}
+            <div>
+                <p class="footer-brand-name">Gian Carl Librada</p>
+                <p class="footer-brand-tagline">QA Engineer · Front-End Developer · San Pedro, Laguna</p>
+                <div class="footer-socials">
+                    <a href="https://www.facebook.com/giancarl.librada.7/" class="footer-social-btn" title="Facebook" target="_blank" rel="noopener">
+                        <img src="{{ asset('images/facebook.png') }}" alt="Facebook">
+                    </a>
+                    <a href="https://www.linkedin.com/in/gian-carl-librada-33b2aa349/" class="footer-social-btn" title="LinkedIn" target="_blank" rel="noopener">
+                        <img src="{{ asset('images/linkedin.png') }}" alt="LinkedIn">
+                    </a>
+                    <a href="https://github.com/Gi-Cal" class="footer-social-btn" title="GitHub" target="_blank" rel="noopener">
+                        <img src="{{ asset('images/github.png') }}" alt="GitHub">
+                    </a>
+                    <a href="https://msng.link/o?9504626311=vi" class="footer-social-btn" title="Viber" target="_blank" rel="noopener">
+                        <img src="{{ asset('images/viber.png') }}" alt="Viber">
+                    </a>
+                </div>
+            </div>
+
+            {{-- Quick Nav --}}
+            <div>
+                <p class="footer-nav-title">Quick Links</p>
+                <ul class="footer-nav-links">
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#about">About Me</a></li>
+                    <li><a href="#projects">My Works</a></li>
+                    <li><a href="#contact">Get in Touch</a></li>
+                </ul>
+            </div>
+
+        </div>
+
+        <hr class="footer-divider">
+
+        <div class="footer-bottom">
+            <p class="footer-copy">&copy; {{ date('Y') }} Gian Carl Librada. All rights reserved.</p>
+            <p class="footer-made-with">Designed &amp; Built with <span>Laravel + Vite</span></p>
+        </div>
+
+    </div>
+</footer>
+
+@endsection
+
+@section('scripts')
+    @vite(['resources/js/portfolio.js'])
+@endsection

@@ -1,0 +1,1129 @@
+const BASE = '/My-Portfolio';
+
+const bugs = [
+    {
+        id: 'BUG-001',
+        title: '[Web app] Canva AI ignores selected image and breaks element-specific editing workflow',
+        type: 'Functional', severity: 'Critical', status: 'Accepted by Customer',
+        url: 'Restricted — submitted via Test IO platform',
+        env: 'Windows 11 — Chrome', device: 'Desktop',
+        steps: [
+            'Go to https://www.canva.com/',
+            'Click Social Media > Facebook Post',
+            'Add two images in a page',
+            'Click Canva AI, then select the first image and generate your prompt'
+        ],
+        expected: [
+            'Canva AI edits only the selected image, applying the user\'s prompt to it.',
+            'The other image remains unchanged.',
+            'Users can independently edit multiple images on the same page without interference.'
+        ],
+        actual: [
+            'Canva AI ignores the selected image and applies changes globally.',
+            'Both images are affected instead of just the selected one.',
+            'Element-specific editing context is lost once the AI panel opens.',
+            'The AI tool does not recognize the active selection and exceeds its intended scope.'
+        ],
+        evidence: '/screencast/1.mp4',
+        notes: 'Consistent and reproducible. Indicates a mismatch between the AI\'s stated intent and its actual execution.'
+    },
+    {
+        id: 'BUG-002',
+        title: '[DE] Face ID button disappears and shows error after switching country',
+        type: 'Functional', severity: 'High', status: 'Accepted by Customer',
+        url: 'N/A', env: 'iOS 26.3', device: 'Apple iPhone 12 Pro',
+        steps: [
+            'Open asambeauty app',
+            'Create an account in DE, then enable "Für zukünftige Anmeldungen Face ID verwenden"',
+            'Create an account in AT using the same email in DE but different password, then enable "Für zukünftige Anmeldungen Face ID verwenden"',
+            'Login the AT account using the Mit Face ID fortfahren button',
+            'Switch country to DE, then login using the Mit Face ID fortfahren button'
+        ],
+        expected: 'When attempting to log in to a deleted account using Face ID, an error message should be displayed. The Face ID login option should remain available for other active accounts that have "Für zukünftige Anmeldungen Face ID verwenden" enabled, even after switching the store country.',
+        actual: 'After attempting to log in using Face ID on a deleted account in the France store, the "Mit Face ID fortfahren" button disappears from the login screen. When switching the store country to Germany, the Face ID login option is also missing for another active account, even though "Für zukünftige Anmeldungen Face ID verwenden" remains enabled.',
+        evidence: '/screencast/2.mp4'
+    },
+    {
+        id: 'BUG-003',
+        title: 'Filter button requires multiple taps to reopen after repeatedly switching themes and tapping "Show Set"',
+        type: 'Functional', severity: 'Low', status: 'Accepted by Customer',
+        url: 'N/A', env: 'iOS 26.3', device: 'Apple iPhone 12 Pro',
+        steps: [
+            'Open Lego App',
+            'Add a collection set that has Build Together and another collection set without Build Together.',
+            'Tap filter and choose theme',
+            'Tap "Show Set"',
+            'Repeat the step 3 and 4'
+        ],
+        expected: 'The filter panel should open consistently with a single tap on the Filter button every time, regardless of previous interactions with the Show Set button.',
+        actual: 'After repeatedly tapping Show Set and then tapping the Filter button, the filter panel sometimes does not open on the first tap and requires a second tap to open, showing inconsistent behavior.',
+        evidence: '/screencast/3.mp4'
+    },
+    {
+        id: 'BUG-004',
+        title: '"Own Your True" and "Shop the Collection" buttons overlap in "Fuel Your Confidence in For X True Religion" blog page',
+        type: 'Visual', severity: '', status: 'Forwarded to Customer',
+        url: 'Restricted — submitted via Test IO platform',
+        env: 'iOS 26.3 — Safari', device: 'Apple iPhone 12 Pro',
+        steps: [
+            'Go to http://www.truereligion.com',
+            'Tap the hamburger menu > BLOG',
+            'Scroll down and tap "Fuel Your Confidence in For X True Religion" blog page',
+            'Scroll down the page'
+        ],
+        expected: 'Both "Own Your True" and "Shop the Collection" buttons should be displayed with proper spacing and alignment. Each button should be fully visible, clearly readable, and independently clickable without overlapping any other UI elements.',
+        actual: 'On the "Fuel Your Confidence in For X True Religion" blog page, the "Own Your True" and "Shop the Collection" buttons overlap each other, causing layout misalignment and affecting readability and user interaction.',
+        evidence: '/images/screenshot/4.png'
+    },
+    {
+        id: 'BUG-005',
+        title: 'Terms of Use link www.taboola.fr blocks navigation and shows "You\'re offline" despite active internet',
+        type: 'Content', severity: '', status: 'Accepted by Customer',
+        url: 'N/A', env: 'Android 14', device: 'Vivo Y22s',
+        steps: [
+            'Open the Headlines app.',
+            'Tap "Advanced" > "News Licensing"',
+            'Tap "Term of Use"',
+            'Tap "www.taboola.fr"'
+        ],
+        expected: 'Tapping the www.taboola.fr link should open the website correctly, reflecting the active internet connection.',
+        actual: 'The app displays a "You\'re offline" message when the user taps the www.taboola.fr link, even though the device has an active internet connection, blocking the user from accessing the intended website.',
+        evidence: '/screencast/5.mp4'
+    },
+    {
+        id: 'BUG-006',
+        title: 'Apple-created account cannot be deleted after reinstalling app – "Method.not_allowed" error displayed',
+        type: 'Functional', severity: 'Critical', status: 'Accepted by Customer',
+        url: 'N/A', env: 'iOS 26.3', device: 'Apple iPhone 12 Pro',
+        steps: [
+            'Open Bible app',
+            'Create an account using apple',
+            'Delete the application',
+            'Install it again and open the app',
+            'Tap continue to open the created account',
+            'Tap You > Profile > Delete account',
+            'Delete the account'
+        ],
+        expected: 'After tapping Delete Account, the app should successfully process the deletion request and permanently delete the account. User should be logged out or redirected appropriately.',
+        actual: [
+            'After reinstalling the app and logging in again using Apple ID, tapping Delete Account in Profile settings displays the error: "YouVersion detected error. We apologize for the inconvenience. Method.not_allowed"',
+            'The account is not deleted and no further action can be completed.'
+        ],
+        evidence: '/screencast/6.mp4'
+    },
+    {
+        id: 'BUG-007',
+        title: 'Incoming call UI blocked by Headlines lock screen when device is awake',
+        type: 'Functional', severity: 'Critical', status: 'Accepted by Customer',
+        url: 'N/A', env: 'Android 14', device: 'Vivo Y22s',
+        steps: [
+            'Install Headlines and allow the app to display over other apps (enable "Display over other apps" in settings).',
+            'Lock the phone and wake the screen (without unlocking).',
+            'From a second device, place a call to the test device.'
+        ],
+        expected: [
+            'Incoming call should not be blocked by the Headlines lock screen when it is active and the screen is awake.',
+            'The user should be able to see, answer, or reject the call immediately, without having to interact with the lock screen.'
+        ],
+        actual: [
+            'When the screen is awake and the Headlines lock screen is active, an incoming call rings but the call UI is blocked by the app overlay and does not appear.',
+            'This behavior blocks normal call functionality, potentially leading to missed calls or delayed response.'
+        ],
+        evidence: '/screencast/7.mp4'
+    },
+    {
+        id: 'BUG-008',
+        title: 'Exclusive code is not visible on mobile in Religion x Snapchat page',
+        type: 'Content', severity: '', status: 'Forwarded to Customer',
+        url: 'Restricted — submitted via Test IO platform',
+        env: 'iOS 26.3 — Safari', device: 'Apple iPhone 12 Pro',
+        steps: [
+            'Go to http://www.truereligion.com',
+            'Login and scroll down until you reach the footer',
+            'Tap Site Map',
+            'Under Featured, tap "True Religion x Snapchat"'
+        ],
+        expected: 'The exclusive code on the Religion x Snapchat page should be consistently visible across all devices. On both platforms, users should be able to view the code clearly and interact with it to copy it to the clipboard when tapped or clicked.',
+        actual: 'On laptop, the exclusive code is displayed correctly and can be copied by clicking on it. However, on mobile devices, the exclusive code is not displayed at all, making it impossible for users to view or copy the code.',
+        evidence: '/screencast/8.mp4'
+    },
+    {
+        id: 'BUG-009',
+        title: '[DE] Pickup store does not update when changing it with items already in the cart',
+        type: 'Functional', severity: 'High', status: 'Accepted by Customer',
+        url: 'N/A', env: 'iOS 26.3', device: 'Apple iPhone 12 Pro',
+        steps: [
+            'Open BAUHAUS app',
+            'Tap "Vileda Reinigungssystem & Eimer HSPRO Flat Mop" item',
+            'Under Jezt Abholen, tap ändern > Search 10115 Berlin Mitte',
+            'Select Berlin-Wedding > Jetzt abholen > Weiter einkaufen',
+            'Tap ändern again > Search 10117 Berlin Mitte',
+            'Select "Berlin Am Hermannplatz"'
+        ],
+        expected: [
+            'User Story Reference: As a User, I can change my pickup store if products are already in the cart.',
+            'When the user changes the pickup store while having items in the cart, the cart updates to the newly selected store.',
+            'If the product is unavailable at the new store, the Jetzt abholen button should be disabled.',
+            'The app displays a message informing the user that the product cannot be picked up at the selected store.'
+        ],
+        actual: [
+            'After changing the pickup store, it remains with the previous store "Berlin-Wedding" even after selecting a new store "Berlin Am Hermannplatz".',
+            'The Jetzt abholen button stays enabled because it did not switch stores.',
+            'No message is displayed regarding availability at the new store.',
+            'Only removing the item from the cart and adding it again updates the store correctly.'
+        ],
+        evidence: '/screencast/9.mp4'
+    },
+    {
+        id: 'BUG-010',
+        title: 'Category text is overlapping and becomes unreadable on "Buddha Fest" page',
+        type: 'Visual', severity: '', status: 'Forwarded to Customer',
+        url: 'Restricted — submitted via Test IO platform',
+        env: 'iOS 26.3 — Safari', device: 'Apple iPhone 12 Pro',
+        steps: [
+            'Go to http://www.truereligion.com',
+            'Login and scroll down until you reach the footer',
+            'Tap Site Map and under Featured, tap Buddha Fest',
+            'Scroll down the page'
+        ],
+        expected: 'All text elements within the category section should be properly aligned and displayed without overlapping. Each label should have sufficient spacing to ensure full readability across all screen sizes.',
+        actual: 'On the "Buddha Fest" page, text within the category section overlaps with adjacent text elements, causing layout distortion and making the affected labels partially unreadable.',
+        evidence: '/images/screenshot/10.png'
+    },
+    {
+        id: 'BUG-011',
+        title: 'Markets Overview: Text under Technical Support overlaps',
+        type: 'Visual', severity: '', status: 'Accepted by Customer',
+        url: 'Restricted — submitted via Test IO platform',
+        env: 'iOS 26.1 — Safari', device: 'Apple iPhone 12 Pro',
+        steps: [
+            'Open https://test-fe.socratesbusiness.com/',
+            'Login with valid credentials',
+            'Search e.g Bitcoin Per USD (Binance)',
+            'In overview scroll down until you reach "Computer Generated Resistance and Support Level" section'
+        ],
+        expected: 'The text under Technical Support should remain inside the table, properly aligned, so the layout stays intact.',
+        actual: 'In the Bitcoin Per USD (Binance) Overview, under Technical Support, the text extends outside the table instead of staying within its boundaries, affecting layout.',
+        evidence: '/images/screenshot/11.png'
+    },
+    {
+        id: 'BUG-012',
+        title: 'App freezes after tapping "More" and sharing via "Messenger" from Deal Details screen',
+        type: 'Functional', severity: 'Critical', status: 'Accepted by Customer',
+        url: 'N/A', env: 'iOS 26.1', device: 'Apple iPhone 12 Pro',
+        steps: [
+            'Open Brad\'s deal App',
+            'In home, tap a product',
+            'In Deal details, tap the Share button',
+            'Tap More and select Messenger',
+            'Return to the App'
+        ],
+        expected: 'After sharing the deal via Messenger and returning to the app, the Deal Details screen should load properly and remain responsive.',
+        actual: 'After tapping the Share button on the Deal Details screen, then tapping More and selecting Messenger, the user returns to the app and the screen freezes. The app becomes unresponsive — no taps, scrolling, or navigation work.',
+        evidence: '/screencast/12.mp4'
+    },
+    {
+        id: 'BUG-013',
+        title: 'The Text "Lower" for "Outside Reversal to DOWNSIDE Moving Lower" indicator is displayed outside its container',
+        type: 'Visual', severity: '', status: 'Accepted by Customer',
+        url: 'Restricted — submitted via Test IO platform',
+        env: 'iOS 26.1 — Safari', device: 'Apple iPhone 12 Pro',
+        steps: [
+            'Open https://test-fe.ask-socrates.com/',
+            'Login or sign up in your account',
+            'Search for Meta Platform Inc',
+            'In Overview, tap View all subtab'
+        ],
+        expected: 'All text related to the yellow indicator should be contained within the yellow container, properly aligned, and fully readable.',
+        actual: 'In the Global Market Watch section, the yellow indicator label ("Outside Reversal to DOWNSIDE Moving") displays the text "Lower" outside the yellow container, affecting readability and layout.',
+        evidence: '/images/screenshot/13.png',
+        notes: 'Because the indicators change every day, it is difficult to catch this indicator again. Based on the screenshot for December 30, it will be reproduced.'
+    },
+    {
+        id: 'BUG-014',
+        title: '"Jetzt Druckdaten hochladen!" redirects to checkout instead of upload flow, blocking print data upload',
+        type: 'Functional', severity: 'Critical', status: 'Accepted by Customer',
+        url: 'Restricted — submitted via Test IO platform',
+        env: 'Windows 11 — Chrome', device: 'Desktop',
+        steps: [
+            'Go to https://www.wir-machen-druck.de/',
+            'Login using the given valid credentials',
+            'Add a product that does not require print data upload (e.g., hochwertiges Rotweinglas) to the cart.',
+            'Go back to the landing page, then add another product that requires print data upload to the cart.',
+            'Go back to the landing page',
+            'Scroll down the page and click "Getränkedosen (bedruckt)"',
+            'Scroll down and under Getränkedosen-Musterset, click "Neutrales-Getraenkedosen-Musterset"',
+            'Add the item "Neutrales Getränkedosen-Musterset" in the cart',
+            'Click Warenkorb, then click "Jetzt Druckdaten hochladen"'
+        ],
+        expected: 'Clicking "Jetzt Druckdaten hochladen!" should navigate the user to the print data upload flow where files can be uploaded for the selected cart item.',
+        actual: 'When clicking "Jetzt Druckdaten hochladen!" for the product "Neutrales Getränkedosen-Musterset," the user is redirected to the checkout page instead of the upload flow. As a result, the user cannot access the upload interface.',
+        evidence: '/screencast/14.mp4'
+    },
+    {
+        id: 'BUG-015',
+        title: 'Mismatch in points displayed for writing a review in the "More Ways to Earn Points" section on the "TRUE REWARDS" page',
+        type: 'Content', severity: '', status: 'Accepted by Customer',
+        url: 'Restricted — submitted via Test IO platform',
+        env: 'iOS 18.6.2 — Safari', device: 'Apple iPhone 12 Pro',
+        steps: [
+            'Open https://staging.truereligion.com',
+            'Tap the sidebar menu',
+            'Tap "TRUE REWARDS"',
+            'Scroll through the "TRUE REWARDS" page',
+            'Click the "Writing a Review" in the "More Ways to Earn Points" section'
+        ],
+        expected: 'After clicking "Write a Review," the points displayed should consistently show 10 points in the "More Ways to Earn Points" section.',
+        actual: 'After clicking "Write a Review," the points displayed are inconsistent — one section shows 10 points, while the modal message shows 5 points.',
+        evidence: '/images/screenshot/15.png'
+    },
+    {
+        id: 'BUG-016',
+        title: '[DE] Applied Voucher Is Silently Removed When Navigating Back to Another Checkout Step',
+        type: 'Functional', severity: 'High', status: 'Accepted by Customer',
+        url: 'N/A', env: 'Android 14', device: 'Vivo Y22s',
+        steps: [
+            'Open HSE App',
+            'Add a product in warenkorb then tap Zur Kasse',
+            'In Bestellung, apply the voucher code "MODE15"',
+            'Navigate to other step without leaving the checkout process',
+            'Go back to Bestellung'
+        ],
+        expected: 'When a voucher is applied in Step 4 of checkout, navigating back and returning to Step 4 should retain the voucher and display the correct discounted total.',
+        actual: 'When a voucher is applied in Step 4 and the user navigates back to another step, returning to Step 4 silently removes the voucher and the discounted total is no longer applied. Users are not informed of the removal.',
+        evidence: '/screencast/16.mp4'
+    },
+    {
+        id: 'BUG-017',
+        title: 'Incorrect spelling in Checkout error message for Expiration field',
+        type: 'Content', severity: '', status: 'Accepted by Customer',
+        url: 'Restricted — submitted via Test IO platform',
+        env: 'iOS 26.1 — Safari', device: 'Apple iPhone 12 Pro',
+        steps: [
+            'Open https://test-fe.ask-socrates.com/',
+            'Tap Sign Up Today button and create an account',
+            'In Checkout, fill up all the fields except the expiration field'
+        ],
+        expected: 'The error message should correctly display: "Expiration date is required"',
+        actual: 'When entering the Expiration field in Checkout incorrectly or leaving it blank, the error message displays: "Expitation date is required"',
+        evidence: '/images/screenshot/17.png'
+    },
+    {
+        id: 'BUG-018',
+        title: 'Unnecessary space between "More Ways to Earn Points" and "Personal Info" sections on the "My Account" page',
+        type: 'Visual', severity: '', status: 'Accepted by Customer',
+        url: 'Restricted — submitted via Test IO platform',
+        env: 'iOS 18.6.2 — Safari', device: 'Apple iPhone 12 Pro',
+        steps: [
+            'Open https://staging.truereligion.com',
+            'Tap the sidebar menu',
+            'Tap "My Account"',
+            'Scroll through the "ACCOUNT DETAILS" page'
+        ],
+        expected: 'The "My Account" page should maintain consistent spacing between the "More Ways to Earn Points" and "Personal Info" sections.',
+        actual: 'An excessive white space is displayed between the two sections, resulting in an unbalanced page layout.',
+        evidence: '/images/screenshot/18.png'
+    },
+    {
+        id: 'BUG-019',
+        title: '[DE] App freezes when ordering gift card after tapping Online-Bestellung button',
+        type: 'Functional', severity: 'Critical', status: 'Accepted by Customer',
+        url: 'N/A', env: 'iOS 26.2.1', device: 'Apple iPhone 12 Pro',
+        steps: [
+            'Open BAUHAUS app',
+            'Search "card"',
+            'Tap the basket icon of "Gutscheinkarte"',
+            'In Gutscheinwert, tap 10 euro > Online-Bestellung'
+        ],
+        expected: 'After selecting an option and tapping Online-Bestellung, the app should proceed to the next step of the order process without delay or interruption.',
+        actual: 'After selecting an option and tapping Online-Bestellung, the app freezes and becomes unresponsive, preventing the user from continuing the order.',
+        evidence: '/screencast/19.mp4'
+    },
+    {
+        id: 'BUG-020',
+        title: 'Follower count in producer\'s profile increases incorrectly after repeatedly following and unfollowing a user',
+        type: 'Functional', severity: 'Low', status: 'Accepted by Customer',
+        url: 'N/A', env: 'iOS 26.3', device: 'Apple iPhone 12 Pro',
+        steps: [
+            'Open Voloco App',
+            'Tap a track in "Home" screen',
+            'Tap the producer\'s username',
+            'Tap the "Follow" button and then unfollow the user repeatedly'
+        ],
+        expected: 'After following and unfollowing the user, the follower count should accurately reflect the actual number of followers and should not increase when the user is unfollowed.',
+        actual: 'The follower count keeps increasing after repeatedly following and unfollowing the user, even after reloading the screen.',
+        evidence: '/screencast/20.mp4'
+    }
+];
+
+const bugs2 = [
+    {
+        id: 'BUG-021',
+        title: 'Products marked unavailable on PLP can be added to cart on PDP and may proceed to checkout',
+        type: 'Functional', severity: 'Critical', status: 'Accepted by Customer',
+        url: 'Restricted — submitted via Test IO platform',
+        env: 'iOS 26.3 — Safari', device: 'Apple iPhone 12 Pro',
+        steps: [
+            'Go to https://staging.reservebar.com/',
+            'Pre-condition: Set the address to 100 Swinford Street, Los Angeles, CA 90731',
+            'Tap the hamburger menu > Spirit > All Spirit',
+            'Filter the PLP by price range to $0 - $10',
+            'Scroll down and tap Du Bouchett Melon Fruit Luqueur product'
+        ],
+        expected: [
+            'On the PLP, products unavailable for the selected shipping location should be displayed as "Not Available" or disabled.',
+            'On the PDP, unavailable products should not allow the user to add them to the cart.',
+            'Availability should be consistent across PLP and PDP.'
+        ],
+        actual: [
+            'On the PLP, some products display as "Not Available" for the shipping location.',
+            'Tapping on the product navigates to the PDP, where the "Add to Cart" button is visible and functional.',
+            'Users are able to add the product to the cart, despite it being marked unavailable on the PLP.',
+            'Users may proceed to checkout for products unavailable to their shipping address.'
+        ],
+        evidence: '/screencast/21.mp4'
+    },
+    {
+        id: 'BUG-022',
+        title: 'The app crashes when the user swipes back to the intended screen after opening the dropdown filter in "Start a Discussion."',
+        type: 'Functional', severity: 'Critical', status: 'Accepted by Customer',
+        url: 'N/A', env: 'iOS 26.3', device: 'Apple iPhone 12 Pro',
+        steps: [
+            'Open my intranet app',
+            'Tap Hamburger menu > Have Your Say > Start a Discussion',
+            'Tap the dropdown filter and swipe to the right to go back to its intended screen'
+        ],
+        expected: 'The app should smoothly navigate back to the intended screen without crashing, even if the filter menu was previously opened in "Start a Discussion."',
+        actual: 'The app crashes when the user swipes back to the intended screen after opening the filter menu in "Start a Discussion."',
+        evidence: '/screencast/22.mp4'
+    },
+    {
+        id: 'BUG-023',
+        title: 'Suggested topics are covered by "Topics" text and cannot be selected because top menu bar is overlapping',
+        type: 'Functional', severity: 'High', status: 'Accepted by Customer',
+        url: 'N/A', env: 'iOS 26.3', device: 'Apple iPhone 12 Pro',
+        steps: [
+            'Open my intranet app',
+            'Tap the profile',
+            'Tap the Topics'
+        ],
+        expected: 'The Suggested Topics carousel should be fully visible below the "Topics" page header, with no overlapping elements.',
+        actual: 'After navigating to the Topics page, the "Topics" header overlaps the Suggested Topics carousel. Some suggested topics are partially or fully covered and cannot be tapped.',
+        evidence: '/screencast/23.mp4'
+    },
+    {
+        id: 'BUG-024',
+        title: '[DE] Account cart pickup item disappears after login when adding item as guest and tapping checkout',
+        type: 'Functional', severity: 'High', status: 'Accepted by Customer',
+        url: 'N/A', env: 'iOS 26.2.1', device: 'Apple iPhone 12 Pro',
+        steps: [
+            'Open BAUHAUS app',
+            'Login with existing account > Choose an item > Select pickup store > Jezt Abholen',
+            'Tap Abmelden',
+            'As a guest, tap any item > Verfugbarkeit prufen > Select pickup store > Jezt Abholen',
+            'In Warenkorb, tap Zur Reservierung and login with the existing account'
+        ],
+        expected: [
+            'After login, the cart contains:',
+            'The pickup item previously added while logged in',
+            'The pickup item added as a guest',
+            'No cart items are lost.',
+            'User can proceed to checkout the pickup items without losing any product.'
+        ],
+        actual: [
+            'After login, the cart only contains the guest-added item.',
+            'The pickup item originally added while logged in disappears from the cart.',
+            'User loses previously saved cart items, breaking continuity.'
+        ],
+        evidence: '/screencast/24.mp4'
+    },
+    {
+        id: 'BUG-025',
+        title: '[DE] Deleting account in DE also deletes account in AT, causing cross-country data loss',
+        type: 'Functional', severity: 'Critical', status: 'Accepted by Customer',
+        url: 'N/A', env: 'iOS 26.2.1', device: 'Apple iPhone 12 Pro',
+        steps: [
+            'Open BAUHAUS app',
+            'Create an account in Deutschland using google email',
+            'Tap Abmelden',
+            'Create an account in Österreich using the same google email',
+            'Tap Abmelden and change the country again to Deutschland and login',
+            'Delete the account then refresh the app',
+            'Change the country to Österreich and tap Weiter mit Google to login'
+        ],
+        expected: [
+            'Deleting an account in Deutschland should only affect the DE account.',
+            'Any accounts created in other countries (e.g., Österreich) with the same email should remain intact.'
+        ],
+        actual: [
+            'User creates an account in Deutschland using Email A.',
+            'User creates an account in Österreich using the same Email A.',
+            'User deletes the account in Deutschland.',
+            'The account in Österreich is also deleted automatically.',
+            'Loss of account and personal data in another region — violates user expectations and account independence.'
+        ],
+        evidence: ['/screencast/25.1.mp4', '/screencast/25.2.mp4']
+    },
+    {
+        id: 'BUG-026',
+        title: 'Default time becomes 24:00 during 23:00 in "Schedule Broadcast" and causes server error when clicking Next',
+        type: 'Functional', severity: 'Low', status: 'Accepted by Customer',
+        url: 'Restricted — submitted via Test IO platform',
+        env: 'Windows 11 — Chrome', device: 'Desktop',
+        steps: [
+            'Open https://hermod.functional.odyssey-dev.com/',
+            'Control Panel > Applications > Broadcasts',
+            'Pre condition: Create the broadcast during 23:00',
+            'Tap Create a Broadcast',
+            'Check "Do you want to schedule your Broadcast?"',
+            'Click "Next"'
+        ],
+        expected: 'The default time should not show 24:00; it should default to a valid hour between 00:00 and 23:00. Clicking Next should proceed without any server error.',
+        actual: 'When creating a broadcast and checking the scheduling option, the default time displays as 24:00. If the user modifies the date but leaves the time as 24:00, clicking Next triggers a 500 server error.',
+        evidence: '/screencast/26.mp4'
+    },
+    {
+        id: 'BUG-027',
+        title: '[INCONSISTENT] Login redirects to Warenkorb after failed attempt instead of homepage',
+        type: 'Functional', severity: 'Low', status: 'Forwarded to Customer',
+        url: 'Restricted — submitted via Test IO platform',
+        env: 'Windows 11 — Chrome', device: 'Desktop',
+        steps: [
+            'Precondition: Use your own account. Ensure the shopping cart is empty.',
+            'Go to https://www.wir-machen-druck.de/index.htm',
+            'Click on "Login" from the header.',
+            'Enter valid credentials and log in successfully > Abmelden',
+            'Click on "Login" again',
+            'Enter the same valid email but an incorrect password, then submit',
+            'After the failed login attempt, enter the correct password and log in successfully.'
+        ],
+        expected: 'After entering the correct credentials, the user should be consistently redirected to the homepage, regardless of any previous failed login attempts.',
+        actual: 'After a failed login attempt followed by a successful login, the system redirects the user to the Warenkorb page, even though the cart is empty and no cart interaction was performed prior to login.',
+        evidence: '/screencast/27.mp4'
+    },
+    {
+        id: 'BUG-028',
+        title: '"Gästehaus Mathilde Kessler" Image Missing, Showing Empty Space on Accommodation List Page',
+        type: 'Content', severity: '', status: 'Accepted by Customer',
+        url: 'Restricted — submitted via Test IO platform',
+        env: 'iOS 18.6.2 — Safari', device: 'Apple iPhone 12 Pro',
+        steps: [
+            'Open https://www.kleinwalsertal.com/en#',
+            'Tap BOOK HOLIDAY button',
+            'Sort the prices in ascending order',
+            'Scroll through the accommodation list'
+        ],
+        expected: 'After scrolling through the accommodation list, the accommodation image for "Gästehaus Mathilde Kessler" should be displayed correctly.',
+        actual: 'The image for "Gästehaus Mathilde Kessler" is not displayed in the accommodation list.',
+        evidence: '/images/screenshot/28.png'
+    },
+    {
+        id: 'BUG-029',
+        title: 'A Video on "Hammersmith Druckreiniger" Product Page is Not Displayed',
+        type: 'Content', severity: '', status: 'Accepted by Customer',
+        url: 'Restricted — submitted via Test IO platform',
+        env: 'iOS 18.6.2 — Safari', device: 'Apple iPhone 12 Pro',
+        steps: [
+            'Open https://www.mediashop.tv/',
+            'Tap sidebar menu',
+            'Tap "Themenwelten" option',
+            'Tap "Hammersmith Druckreiniger"',
+            'Scroll through the Hammersmith Druckreiniger product page'
+        ],
+        expected: 'The product video on the "Hammersmith Druckreiniger" product page should be visible.',
+        actual: 'The product video on the "Hammersmith Druckreiniger" product page is not displayed.',
+        evidence: '/images/screenshot/29.png'
+    },
+    {
+        id: 'BUG-030',
+        title: 'Products Under "2 Minuten 2 Millionen" and "Geprüfte B-Ware" Not Displayed on PLP After Changing Delivering Country to Schweiz or Liechtenstein',
+        type: 'Content', severity: '', status: 'Accepted by Customer',
+        url: 'Restricted — submitted via Test IO platform',
+        env: 'iOS 18.6.2 — Safari', device: 'Apple iPhone 12 Pro',
+        steps: [
+            'Open https://www.mediashop.tv/',
+            'Tap the country flag',
+            'Change the country to "Liechtenstein" or "Schweiz"',
+            'Tap "Speichern" button',
+            'Tap sidebar menu',
+            'Tap "Themenwelten" option',
+            'Tap the "Geprüfte B-Ware" content',
+            'Tap the "2 Minuten 2 Millionen" content'
+        ],
+        expected: 'Products under "2 Minuten 2 Millionen" and "Geprüfte B-Ware" should be displayed after changing the country to deliver into Schweiz or Liechtenstein.',
+        actual: 'Products under "2 Minuten 2 Millionen" and "Geprüfte B-Ware" are not displayed after changing the country to deliver into Schweiz or Liechtenstein.',
+        evidence: '/screencast/30.mp4'
+    },
+    {
+        id: 'BUG-031',
+        title: '[DE] Unable to Successfully Add Products From Landing Page Carousel to Cart After Account Deletion',
+        type: 'Functional', severity: 'Critical', status: 'Accepted by Customer',
+        url: 'N/A', env: 'iOS 26.2.1', device: 'Apple iPhone 12 Pro',
+        steps: [
+            'Open BAUHAUS app',
+            'Login through Google',
+            'Delete the account',
+            'In landing page, tap the cart icon of any item'
+        ],
+        expected: [
+            'Related User Story: "DE: As a user, I can successfully add products from a product carousel to my online shopping cart."',
+            'After deleting the account, the user should still be able to add products from the landing page to the Warenkorb. The item should be added, the cart counter should update, and no error message should be displayed.'
+        ],
+        actual: 'After deleting the account and returning to the landing page, tapping the cart icon on products does not add the item to the Warenkorb. The cart counter does not update, and an error message is displayed: "Ein unerwarteter Fehler ist aufgetreten."',
+        evidence: '/screencast/31.mp4'
+    },
+    {
+        id: 'BUG-032',
+        title: 'Excessive White Space Between Images and "Shop Now" Button on Ricky Red Stitch Page',
+        type: 'Visual', severity: '', status: 'Accepted by Customer',
+        url: 'Restricted — submitted via Test IO platform',
+        env: 'iOS 18.6.2 — Safari', device: 'Apple iPhone 12 Pro',
+        steps: [
+            'Open https://staging.truereligion.com',
+            'Scroll down to footer',
+            'Scroll through the page and in Featured, tap Ricky Red Stitch',
+            'Scroll through the page until you reach the bottom content of the page'
+        ],
+        expected: 'The spacing between the product images and the "Shop Now" button should be consistent and minimal, with no excessive white space.',
+        actual: 'A large white space appears between the product images and the "Shop Now" button on the Ricky Red Stitch page, creating an unnecessary gap.',
+        evidence: '/screencast/32.mp4'
+    },
+    {
+        id: 'BUG-033',
+        title: 'Add Address Button Not Accessible in Both Portrait and Landscape Modes Due to Non-Scrollable Form in "Addresses" Page',
+        type: 'Functional', severity: 'High', status: 'Accepted by Customer',
+        url: 'Restricted — submitted via Test IO platform',
+        env: 'iOS 18.6.2 — Safari', device: 'Apple iPhone 12 Pro',
+        steps: [
+            'Open https://staging.truereligion.com',
+            'Tap the sidebar menu',
+            'Tap My Account',
+            'Scroll down the ACCOUNT DETAILS page, and tap Account Details dropdown menu',
+            'Tap "Addresses"',
+            'Tap "ADD NEW ADDRESS"'
+        ],
+        expected: 'The address form must be scrollable in both portrait and landscape modes so that the "add" button remains accessible.',
+        actual: 'In portrait mode, the Add button cannot be clicked because the page is not scrollable. In landscape mode, the Add button also cannot be accessed due to the same scrolling issue.',
+        evidence: '/screencast/33.mp4'
+    },
+    {
+        id: 'BUG-034',
+        title: 'Tabs with "View Overall" subtab causes load indefinitely after switching from one tab to another',
+        type: 'Functional', severity: 'High', status: 'Accepted by Customer',
+        url: 'Restricted — submitted via Test IO platform',
+        env: 'iOS 26.1 — Safari', device: 'Apple iPhone 12 Pro',
+        steps: [
+            'Open https://test-fe.socratesbusiness.com/',
+            'Login with valid credentials',
+            'Search Toyota then in Overview tab, tap View all subtab',
+            'Tap Reversal or Array tab'
+        ],
+        expected: [
+            'The loading behavior should be consistent across all tabs with View All subtabs.',
+            'Previous navigation should not impact load time, ensuring a smooth user experience.'
+        ],
+        actual: 'Tapping View All subtab in one tab and then switching to another tab with a View All subtab causes the content to keep loading indefinitely.',
+        evidence: '/screencast/34.mp4'
+    },
+    {
+        id: 'BUG-035',
+        title: '[DE] Tapping "Die nächsten Livestreams" in Früh-Shoppen Creator Opens a Blank Page',
+        type: 'Functional', severity: 'High', status: 'Accepted by Customer',
+        url: 'N/A', env: 'iOS 18.6.2', device: 'Apple iPhone 12 Pro',
+        steps: [
+            'Open HSE App',
+            'Tap Streams',
+            'Scroll down and tap Früh-Shoppen in Beliebte Creator',
+            'Scroll down and tap the live stream in Die nächsten Livestreams'
+        ],
+        expected: 'After tapping an upcoming livestream, the app should open the livestream details page and display all relevant information including creator profile, stream description, and associated product list.',
+        actual: 'After tapping an upcoming livestream under "Die nächsten Livestreams", the app redirects to a completely blank page. No creator information, no stream details, and no product list are displayed.',
+        evidence: '/screencast/35.mp4'
+    },
+    {
+        id: 'BUG-036',
+        title: 'Popular extract options under "Plant Extract" Category show text and button labels misaligned within their containers',
+        type: 'Visual', severity: '', status: 'Accepted by Customer',
+        url: 'Restricted — submitted via Test IO platform',
+        env: 'iOS 18.6.2', device: 'Apple iPhone 12 Pro',
+        steps: [
+            'Open https://en.vitamin360.com/',
+            'Tap "Plant Extracts"'
+        ],
+        expected: 'The text inside each Popular Extracts option button should be properly centered vertically and horizontally.',
+        actual: 'The text inside the option buttons under the Popular Extracts section is not vertically centered. The labels appear misaligned and positioned slightly higher within their button containers.',
+        evidence: '/images/screenshot/36.png'
+    },
+    {
+        id: 'BUG-037',
+        title: '[DE] Warenkorb and DIY stuck in infinite loading when Piardino Fensterblatt Mix is added to cart',
+        type: 'Functional', severity: 'Critical', status: 'Accepted by Customer',
+        url: 'N/A', env: 'iOS 26.2.1', device: 'Apple iPhone 12 Pro',
+        steps: [
+            'Open BAUHAUS app',
+            'Tap DIY > DIY Faux-Clay-Vase > Alles in den Warenkorb > Zum Warenkorb',
+            'Under Passende Produkte, swipe and tap the cart icon of "Piardino Fensterblatt Mix"',
+            'Addition: Tap DIY and tap any DIY product'
+        ],
+        expected: [
+            'When Piardino Fensterblatt Mix is added to the cart while DIY Faux-Clay-Vase is already in the cart, the Warenkorb loads normally and displays all items.',
+            'The user can review cart contents and proceed to checkout without loading issues.',
+            'DIY product pages load normally and are not affected by cart actions.'
+        ],
+        actual: [
+            'When Piardino Fensterblatt Mix is added to the cart while DIY Faux-Clay-Vase is already in the cart, the Warenkorb enters infinite loading.',
+            'After refreshing or reopening the app, Piardino Fensterblatt Mix is not added to the cart.',
+            'Additionally, when navigating back to the DIY section, the product page also enters infinite loading.'
+        ],
+        evidence: '/screencast/37.mp4'
+    },
+    {
+        id: 'BUG-038',
+        title: 'Add to Cart button disabled on PDP but quantity can be increased in cart and may proceed to checkout',
+        type: 'Functional', severity: 'Critical', status: 'Accepted by Customer',
+        url: 'Restricted — submitted via Test IO platform',
+        env: 'iOS 26.3 — Safari', device: 'Apple iPhone 12 Pro',
+        steps: [
+            'Go to https://staging.reservebar.com/',
+            'Pre-condition: Set the address to 100 Centre Street, New York, NY 10007',
+            'Tap the hamburger menu > Spirit > Single Barrel',
+            'Scroll down and tap "The Whiskey Boys Still Austin Single Barrel" > Add to Cart',
+            'Increase the quantity by 12, then tap the product',
+            'Go back to the cart again and try to increase it again'
+        ],
+        expected: [
+            'If the Add to Cart button is disabled on the PDP, users should not be able to increase the quantity of the same product in the cart.',
+            'The system should enforce consistent purchase restrictions across PDP and Cart.',
+            'Users should not be able to proceed to checkout with quantities that are restricted on the PDP.'
+        ],
+        actual: [
+            'After adding the product to the cart and increasing the quantity, tapping the product redirects to the PDP where the Add to Cart button is disabled.',
+            'Despite this restriction on the PDP, the user can return to the cart and increase the quantity again.',
+            'The user may still proceed to checkout with the updated quantity.'
+        ],
+        evidence: '/screencast/38.mp4'
+    },
+    {
+        id: 'BUG-039',
+        title: 'Inconsistent danger messages for Breite/Höhe when selecting Keilrahmen and entering values in Freies Format',
+        type: 'Functional', severity: 'Low', status: 'Accepted by Customer',
+        url: 'Restricted — submitted via Test IO platform',
+        env: 'Windows 11 — Chrome', device: 'Desktop',
+        steps: [
+            'Open http://www.wir-machen-druck.de/',
+            'Click Layout- und Grafikbüro > Fotoleinwand gestalten lassen',
+            'In Fotoleinwand - Gestaltung und Erstellung, click Preise & Bestellung',
+            'In Keilrahmen, select 2cm',
+            'Input 1 in breite and Hohe',
+            'Click the back button and refresh the site',
+            'Repeat step 3',
+            'Input first 1 in breite and Hohe, then select 2cm in Keilrahmen'
+        ],
+        expected: [
+            'Danger messages should update consistently regardless of the order of input:',
+            'Minimum size danger disappears when size ≥ 1 cm.',
+            'Increment danger disappears only when size meets 10 cm requirement.',
+            'Selecting Keilrahmen or entering Breite/Höhe should immediately update all relevant danger messages.'
+        ],
+        actual: [
+            'If Keilrahmen is selected first, the minimum size danger remains visible even after entering 1 cm in Breite/Höhe.',
+            'If Breite/Höhe are entered first, then selecting Keilrahmen causes minimum danger to disappear immediately, but increment danger remains.',
+            'Both dangers disappear only when Breite/Höhe ≥ 10.'
+        ],
+        evidence: '/screencast/39.mp4'
+    },
+    {
+        id: 'BUG-040',
+        title: 'Unnecessary Spaces Between "Equipment" and "Contact and Arrival" Sections in Accommodation Details',
+        type: 'Visual', severity: '', status: 'Accepted by Customer',
+        url: 'Restricted — submitted via Test IO platform',
+        env: 'iOS 18.6.2 — Safari', device: 'Apple iPhone 12 Pro',
+        steps: [
+            'Open https://www.kleinwalsertal.com/en',
+            'Tap "BOOK HOLIDAY" button',
+            'Tap any accommodation on "Accommodations" page',
+            'Scroll through the accommodation details until you reach the Equipment and Contact and arrival sections'
+        ],
+        expected: 'The accommodation details page should maintain consistent spacing between the "Equipment" and "Contact and arrival" sections.',
+        actual: 'An unnecessary space is displayed between the "Equipment" and "Contact and Arrival" sections, resulting in an unbalanced page layout.',
+        evidence: '/images/screenshot/40.png'
+    }
+];
+
+const allBugs = [...bugs, ...bugs2];
+
+// ================================================================
+// STATUS CLASS HELPER
+// ================================================================
+function statusClass(status) {
+    if (!status) return '';
+    const s = status.toLowerCase();
+    if (s.includes('accepted'))  return 'status-accepted';
+    if (s.includes('forwarded')) return 'status-forwarded';
+    if (s.includes('rejected'))  return 'status-rejected';
+    return 'status-' + s.replace(/ /g, '-');
+}
+
+// ================================================================
+// PAGINATION + TABLE
+// ================================================================
+const ROWS_PER_PAGE = 5;
+let currentPage  = 1;
+let filteredBugs = [...allBugs];
+
+function renderTable() {
+    const tbody = document.getElementById('bugTableBody');
+    const start = (currentPage - 1) * ROWS_PER_PAGE;
+    const paged = filteredBugs.slice(start, start + ROWS_PER_PAGE);
+    const total = Math.ceil(filteredBugs.length / ROWS_PER_PAGE);
+
+    tbody.innerHTML = '';
+    paged.forEach(bug => {
+        const tr = document.createElement('tr');
+        tr.className = 'bug-row';
+        const sevCell = bug.type === 'Functional' && bug.severity
+            ? `<span class="sev-badge sev-${bug.severity.toLowerCase()}">${bug.severity}</span>`
+            : `<span class="sev-blank">—</span>`;
+        tr.innerHTML = `
+            <td class="bug-id">${bug.id}</td>
+            <td class="bug-title-cell">${bug.title}</td>
+            <td><span class="type-badge type-${bug.type.toLowerCase()}">${bug.type}</span></td>
+            <td>${sevCell}</td>
+            <td><span class="status-badge ${statusClass(bug.status)}">${bug.status}</span></td>
+        `;
+        tr.addEventListener('click', () => showDetail(bug, tr));
+        tbody.appendChild(tr);
+    });
+
+    document.getElementById('pageInfo').textContent =
+        `Page ${currentPage} of ${total || 1} (${filteredBugs.length} bug${filteredBugs.length !== 1 ? 's' : ''})`;
+    document.getElementById('prevPage').disabled = currentPage === 1;
+    document.getElementById('nextPage').disabled = currentPage >= total;
+    document.getElementById('bugDetailEmpty').classList.remove('d-none');
+    document.getElementById('bugDetailContent').classList.add('d-none');
+}
+
+document.getElementById('prevPage').addEventListener('click', () => {
+    if (currentPage > 1) { currentPage--; renderTable(); }
+});
+document.getElementById('nextPage').addEventListener('click', () => {
+    if (currentPage < Math.ceil(filteredBugs.length / ROWS_PER_PAGE)) { currentPage++; renderTable(); }
+});
+
+document.querySelectorAll('.bug-filter-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+        document.querySelectorAll('.bug-filter-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        const f = btn.dataset.filter;
+        filteredBugs = f === 'all' ? [...allBugs] : allBugs.filter(b => b.type === f);
+        currentPage = 1;
+        renderTable();
+    });
+});
+
+// ================================================================
+// HELPER — string → paragraph | array → bullet list
+// ================================================================
+function renderField(elementId, value) {
+    const el = document.getElementById(elementId);
+    if (!value) { el.textContent = ''; el.className = 'detail-value'; return; }
+    if (Array.isArray(value)) {
+        const ul = document.createElement('ul');
+        ul.className = 'detail-bullet-list';
+        value.forEach(item => {
+            const li = document.createElement('li');
+            li.textContent = item;
+            ul.appendChild(li);
+        });
+        el.innerHTML = '';
+        el.appendChild(ul);
+    } else {
+        el.textContent = value;
+        el.className = 'detail-value';
+    }
+}
+
+// ================================================================
+// EVIDENCE RENDERER
+// ================================================================
+function renderEvidence(evEl, evidence) {
+    if (!evidence || (Array.isArray(evidence) && evidence.length === 0)) {
+        evEl.innerHTML = `<span class="evidence-placeholder">
+            <i class="fa-solid fa-image me-1"></i>Screenshot available upon request
+        </span>`;
+        return;
+    }
+
+    const sources = Array.isArray(evidence) ? evidence : [evidence];
+
+    if (sources.length === 1) {
+        const src     = sources[0];
+        const isVideo = /\.(mp4|webm|ogg|mov)$/i.test(src);
+        evEl.innerHTML = isVideo
+            ? `<div class="evidence-thumb-wrap" title="Click to play">
+                <div class="evidence-video-thumb">
+                    <i class="fa-solid fa-circle-play"></i>
+                    <span>Click to play video</span>
+                </div>
+                <div class="evidence-thumb-overlay">
+                    <i class="fa-solid fa-magnifying-glass-plus"></i>
+                </div>
+            </div>`
+            : `<div class="evidence-thumb-wrap" title="Click to enlarge">
+                <img src="${BASE + src}" alt="Bug screenshot" class="evidence-thumb">
+                <div class="evidence-thumb-overlay">
+                    <i class="fa-solid fa-magnifying-glass-plus"></i>
+                </div>
+            </div>`;
+        evEl.querySelector('.evidence-thumb-wrap').addEventListener('click', () => openEvidenceModal(src));
+    } else {
+        evEl.innerHTML = `<div class="evidence-multi-grid">${
+            sources.map((src, i) => {
+                const isVideo = /\.(mp4|webm|ogg|mov)$/i.test(src);
+                const label   = `Video ${i + 1}`;
+                return isVideo
+                    ? `<div class="evidence-thumb-wrap evidence-multi-item" data-src="${src}" title="Click to play ${label}">
+                        <div class="evidence-video-thumb">
+                            <i class="fa-solid fa-circle-play"></i>
+                            <span>${label}</span>
+                        </div>
+                        <div class="evidence-thumb-overlay">
+                            <i class="fa-solid fa-magnifying-glass-plus"></i>
+                        </div>
+                    </div>`
+                    : `<div class="evidence-thumb-wrap evidence-multi-item" data-src="${src}" title="Click to enlarge">
+                        <img src="${BASE + src}" alt="Evidence ${i + 1}" class="evidence-thumb">
+                        <div class="evidence-thumb-overlay">
+                            <i class="fa-solid fa-magnifying-glass-plus"></i>
+                        </div>
+                    </div>`;
+            }).join('')
+        }</div>`;
+
+        evEl.querySelectorAll('.evidence-multi-item').forEach(el => {
+            el.addEventListener('click', () => openEvidenceModal(el.dataset.src));
+        });
+    }
+}
+
+// ================================================================
+// EVIDENCE MODAL
+// ================================================================
+function toVideoRoute(src) {
+    return BASE + src;
+}
+
+function openEvidenceModal(src) {
+    const modal   = document.getElementById('evidenceModal');
+    const img     = document.getElementById('evidenceModalImg');
+    const video   = document.getElementById('evidenceModalVideo');
+    const isVideo = /\.(mp4|webm|ogg|mov)$/i.test(src);
+
+    if (isVideo) {
+        img.style.display   = 'none';
+        video.style.display = 'block';
+        video.preload       = 'metadata';
+        video.src           = toVideoRoute(src);
+        video.currentTime   = 0;
+        video.load();
+        video.addEventListener('loadedmetadata', function onMeta() {
+            video.play().catch(() => {});
+            video.removeEventListener('loadedmetadata', onMeta);
+        });
+    } else {
+        video.pause();
+        video.style.display = 'none';
+        img.style.display   = 'block';
+        img.src = BASE + src;
+    }
+
+    modal.classList.add('active');
+    document.body.style.overflow = 'hidden';
+}
+
+function closeEvidenceModal() {
+    const modal = document.getElementById('evidenceModal');
+    const video = document.getElementById('evidenceModalVideo');
+    video.pause();
+    video.currentTime = 0;
+    modal.classList.remove('active');
+    document.body.style.overflow = '';
+}
+
+document.getElementById('evidenceModalClose').addEventListener('click', () => closeEvidenceModal());
+document.getElementById('evidenceModal').addEventListener('click', (e) => {
+    if (e.target === document.getElementById('evidenceModal')) closeEvidenceModal();
+});
+document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeEvidenceModal(); });
+
+// ================================================================
+// AUTO-SCROLL TO BUG DETAIL PANEL ON MOBILE/TABLET
+// On desktop (≥992px) the panel is beside the table so no scroll needed.
+// On mobile/tablet (<992px) the panel renders below — scroll to it smoothly.
+// ================================================================
+function scrollToDetailIfMobile() {
+    if (window.innerWidth < 992) {
+        const panel = document.getElementById('bugDetail');
+        if (!panel) return;
+        // Small delay so the DOM updates (content swap) before we measure
+        setTimeout(() => {
+            const offset = 80; // account for fixed navbar height
+            const top = panel.getBoundingClientRect().top + window.pageYOffset - offset;
+            window.scrollTo({ top, behavior: 'smooth' });
+        }, 50);
+    }
+}
+
+// ================================================================
+// DETAIL PANEL
+// ================================================================
+function showDetail(bug, row) {
+    document.querySelectorAll('.bug-row').forEach(r => r.classList.remove('selected'));
+    row.classList.add('selected');
+    document.getElementById('bugDetailEmpty').classList.add('d-none');
+    document.getElementById('bugDetailContent').classList.remove('d-none');
+
+    // Type
+    const typeEl = document.getElementById('detailType');
+    typeEl.textContent = bug.type;
+    typeEl.className = `detail-type-badge type-${bug.type.toLowerCase()}`;
+
+    // Severity
+    const sevEl = document.getElementById('detailSeverity');
+    if (bug.type === 'Functional' && bug.severity) {
+        sevEl.textContent = bug.severity;
+        sevEl.className = `detail-severity-badge sev-${bug.severity.toLowerCase()}`;
+        sevEl.style.display = 'inline-block';
+    } else {
+        sevEl.style.display = 'none';
+    }
+
+    // Status
+    const statEl = document.getElementById('detailStatus');
+    statEl.textContent = bug.status;
+    statEl.className = `detail-status-badge ${statusClass(bug.status)}`;
+
+    // Title
+    document.getElementById('detailTitle').textContent = `[${bug.id}] ${bug.title}`;
+
+    // URL
+    const urlEl = document.getElementById('detailUrl');
+    if (bug.url && bug.url.startsWith('http')) {
+        urlEl.textContent = bug.url;
+        urlEl.href = bug.url;
+        urlEl.style.pointerEvents = 'auto';
+        urlEl.style.color = '';
+    } else {
+        urlEl.textContent = bug.url || 'N/A';
+        urlEl.removeAttribute('href');
+        urlEl.style.pointerEvents = 'none';
+        urlEl.style.color = 'rgba(255,255,255,0.4)';
+    }
+
+    // Env & Device
+    document.getElementById('detailEnv').textContent    = bug.env;
+    document.getElementById('detailDevice').textContent = bug.device;
+
+    // Steps
+    const stepsList = document.getElementById('detailSteps');
+    stepsList.innerHTML = '';
+    bug.steps.forEach(s => {
+        const li = document.createElement('li');
+        li.textContent = s;
+        stepsList.appendChild(li);
+    });
+
+    // Expected & Actual
+    renderField('detailExpected', bug.expected);
+    renderField('detailActual',   bug.actual);
+
+    // Notes
+    const notesField = document.getElementById('detailNotesField');
+    const notesEl    = document.getElementById('detailNotes');
+    if (bug.notes) {
+        notesField.style.display = 'block';
+        notesEl.textContent = bug.notes;
+    } else {
+        notesField.style.display = 'none';
+        notesEl.textContent = '';
+    }
+
+    // Evidence
+    renderEvidence(document.getElementById('detailEvidence'), bug.evidence);
+
+    // Reset panel scroll to top
+    document.getElementById('bugDetail').scrollTop = 0;
+
+    // ---- Auto-scroll to panel on mobile/tablet ----
+    scrollToDetailIfMobile();
+}
+
+renderTable();
+
+// ================================================================
+// TYPING LOOP
+// ================================================================
+const typingEl  = document.getElementById('typingText');
+const typingStr = 'An Aspiring QA/WebDev';
+let tIdx = 0, tDel = false;
+
+function typeLoop() {
+    if (!tDel) {
+        typingEl.textContent = typingStr.slice(0, tIdx + 1);
+        tIdx++;
+        if (tIdx === typingStr.length) { tDel = true; setTimeout(typeLoop, 1800); return; }
+        setTimeout(typeLoop, 90);
+    } else {
+        typingEl.textContent = typingStr.slice(0, tIdx - 1);
+        tIdx--;
+        if (tIdx === 0) { tDel = false; setTimeout(typeLoop, 500); return; }
+        setTimeout(typeLoop, 45);
+    }
+}
+typeLoop();
+
+// ================================================================
+// SCROLL REVEAL
+// ================================================================
+const revealEls = document.querySelectorAll('.reveal');
+const revealObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) entry.target.classList.add('is-visible');
+        else entry.target.classList.remove('is-visible');
+    });
+}, { threshold: 0.12 });
+revealEls.forEach(el => revealObserver.observe(el));
+document.querySelectorAll('#home .reveal').forEach(el => el.classList.add('is-visible'));
+
+// ================================================================
+// ACTIVE NAV + HAMBURGER CLOSE
+// ================================================================
+const navCollapse = document.getElementById('navMenu');
+const bsCollapse  = new bootstrap.Collapse(navCollapse, { toggle: false });
+
+document.querySelectorAll('.custom-link').forEach(link => {
+    link.addEventListener('click', () => {
+        document.querySelectorAll('.custom-link').forEach(l => l.classList.remove('active'));
+        link.classList.add('active');
+        if (navCollapse.classList.contains('show')) bsCollapse.hide();
+    });
+});
+
+document.addEventListener('click', (e) => {
+    const navbar = document.querySelector('.custom-navbar');
+    if (!navbar.contains(e.target) && navCollapse.classList.contains('show')) bsCollapse.hide();
+});
+
+// ================================================================
+// SEND BUTTON + FORM RESET
+// ================================================================
+const sendBtn = document.getElementById('myButton');
+if (sendBtn) {
+    sendBtn.addEventListener('click', () => {
+        sendBtn.classList.add('clicked');
+        setTimeout(() => sendBtn.classList.remove('clicked'), 300);
+    });
+}
+window.addEventListener('pageshow', (e) => {
+    if (e.persisted) document.getElementById('contact-form').reset();
+});
