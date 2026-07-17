@@ -1064,7 +1064,7 @@ renderTable();
 // TYPING LOOP
 // ================================================================
 const typingEl  = document.getElementById('typingText');
-const typingStr = 'An Aspiring QA/WebDev';
+const typingStr = 'An Aspiring QA Tester & Front-End Developer';
 let tIdx = 0, tDel = false;
 
 function typeLoop() {
